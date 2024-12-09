@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="images/favicon.ico" type="image/ico" />
+
+	<title>Admin - Gestão de Contratos</title>
+
+	<!-- Bootstrap -->
+	<link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link href="../../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<!-- NProgress -->
+	<link href="../../vendors/nprogress/nprogress.css" rel="stylesheet">
+	<!-- iCheck -->
+	<link href="../../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+	<!-- bootstrap-wysiwyg -->
+	<link href="../../vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+	<!-- Select2 -->
+	<link href="../../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+	<!-- Switchery -->
+	<link href="../../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+	<!-- starrr -->
+	<link href="../../vendors/starrr/dist/starrr.css" rel="stylesheet">
+	<!-- bootstrap-daterangepicker -->
+	<link href="../../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+	<!-- Custom Theme Style -->
+	<link href="../../build/css/custom.min.css" rel="stylesheet">
+
+
+	<!-- Importando o Menu -->
+	<script src="../../admin/components/menu_left/index.js"></script>
+	<script src="../../admin/components/menu_top/index.js"></script>
+	<script src="../../admin/components/menu_footer/index.js"></script>
+
+
+  </head>
+
+  <body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<div class="col-md-3 left_col">
+				<div class="left_col scroll-view">
+					<div class="navbar nav_title" style="border: 0; padding-left: 20px;">
+						<a href="/admin/index.html" class="site_title"><span>Contratos</span></a>
+					</div>
+
+					<div class="clearfix"></div>
+
+                    <br />
+
+					<!-- sidebar menu -->
+					<menu-left></menu-left>
+					<!-- /sidebar menu -->
+
+				</div>
+			</div>
+
+			<!-- top navigation -->
+			<menu-top></menu-top>
+			<!-- /top navigation -->
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<div class="">
+					<div class="page-title">
+						<div class="title_left">
+							<h3>Listar Parceiros</h3>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="row">
+						<div class="col-md-12 col-sm-12 ">
+							<div class="x_panel">
+								<div class="x_content">
+									<br />
+									<div id="postos-lista">
+										<!-- start project list -->
+										<table class="table table-striped projects">
+											<thead>
+												<tr>
+													<th style="width: 1%">#</th>
+													<th style="width: 70%">Nome</th>
+													<th style="width: 20%">Ações</th>
+												</tr>
+											</thead>
+											<tbody id="pontos-corpo">
+											</tbody>
+										</table>
+										<!-- end project list -->
+									</div>
+							
+									<script>
+
+										// Função para carregar os pontos
+										async function carregarPontos() {
+											try {
+												const response = await fetch('/pontos');
+												const pontos = await response.json();
+												
+												const pontosCorpo = document.getElementById('pontos-corpo');
+							
+												pontos.forEach(ponto => {
+													const linhaPonto = document.createElement('tr');
+													
+													linhaPonto.innerHTML = `
+														<td>#</td>
+														<td><a>${ponto.nome}</a></td>
+														<td>
+															<a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Editar </a>
+															<a href="#" class="btn btn-danger btn-xs" onclick="deletarPonto('${ponto.id}', this)"><i class="fa fa-trash-o"></i> Deletar </a>
+														</td>
+													`;
+													
+													pontosCorpo.appendChild(linhaPonto);
+												});
+											} catch (error) {
+												console.error('Erro ao carregar pontos:', error);
+											}
+										}
+							
+										// Deleta Ponto
+										async function deletarPonto(id, link) {
+											try {
+												const response = await fetch(`/pontos/${id}`, {
+													method: 'DELETE'
+												});
+							
+												if (response.ok) {
+													alert('Ponto turístico deletado com sucesso!');
+													// Remove a linha da tabela sem recarregar a página
+													link.closest('tr').remove(); // remove a linha que contém o botão de deletar
+												} else {
+													const errorData = await response.json();
+													alert(`Erro ao deletar Ponto turístico: ${errorData.message}`);
+												}
+											} catch (error) {
+												console.error('Erro ao deletar Ponto turístico:', error);
+											}
+										}
+							
+										// Carregar os Ponto turístico quando a página carregar
+										window.addEventListener('load', carregarPontos);
+
+									</script>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- /page content -->
+
+			<!-- footer content -->
+			<menu-footer></menu-footer>
+			<!-- /footer content -->
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script src="../../vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="../../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- FastClick -->
+	<script src="../../vendors/fastclick/lib/fastclick.js"></script>
+	<!-- NProgress -->
+	<script src="../../vendors/nprogress/nprogress.js"></script>
+	<!-- bootstrap-progressbar -->
+	<script src="../../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<!-- iCheck -->
+	<script src="../../vendors/iCheck/icheck.min.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="../../vendors/moment/min/moment.min.js"></script>
+	<script src="../../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="../../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="../../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="../../vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="../../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="../../vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="../../vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="../../vendors/parsleyjs/dist/parsley.min.js"></script>
+
+	<!-- Parsley PT-BR -->
+	<script src="../../vendors/parsleyjs/dist/i18n/pt-br.js"></script>
+
+	<!-- Autosize -->
+	<script src="../../vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
+	<script src="../../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="../../vendors/starrr/dist/starrr.js"></script>
+	<!-- Custom Theme Scripts -->
+	<script src="../../build/js/custom.min.js"></script>
+
+  </body></html>
