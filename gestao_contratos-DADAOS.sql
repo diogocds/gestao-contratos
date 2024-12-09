@@ -57,7 +57,7 @@ CREATE TABLE enderecos (
 	numero INTEGER,
 	cep VARCHAR(9) NOT NULL,
 	bairro VARCHAR(255) NOT NULL,
-	tipo_usuario_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE,
+	tipo_usuario_id INTEGER REFERENCES tipo_usuario(id) ON DELETE CASCADE,
 	created_at TIMESTAMP DEFAULT NOW(),
 	updated_at TIMESTAMP DEFAULT NOW()
 );
@@ -77,7 +77,7 @@ CREATE TABLE cnhs (
     numero_registro VARCHAR(20) NOT NULL,
     categoria VARCHAR(5) NOT NULL,
     validade DATE NOT NULL,
-    tipo_usuario_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE,
+    tipo_usuario_id INTEGER REFERENCES tipo_usuario(id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
@@ -147,7 +147,7 @@ CREATE TABLE contratos (
     data_retorno VARCHAR(10) NOT NULL,
     data_fim VARCHAR(10),
     ativo BOOLEAN DEFAULT true NOT NULL,
-    tipo_usuario_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE,
+    tipo_usuario_id INTEGER REFERENCES tipo_usuario(id) ON DELETE CASCADE,
     veiculos_id INTEGER REFERENCES veiculos(id) ON DELETE CASCADE,
     checklist_id INTEGER REFERENCES checklist(id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT NOW(),
