@@ -46,7 +46,7 @@
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0; padding-left: 20px;">
-						<a href="/admin/index.html" class="site_title"><span>Contratos</span></a>
+						<a href="/admin/index.html" class="site_title"><span>ADM Gestão Contratos</span></a>
 					</div>
 
 					<div class="clearfix"></div>
@@ -77,7 +77,7 @@
 						<div class="col-md-12 col-sm-12">
 							<div class="x_panel">
 								<div class="x_content">
-									<form action="/parceiros" method="POST" id="formPontoTuristico" data-parsley-validate class="form-horizontal form-label-left">
+									<form action="/parceiros" method="POST" id="formParceiros" enctype="multipart/form-data" data-parsley-validate class="form-horizontal form-label-left">
 										<h2 class="h5 font-weight-medium">Identificação do Usuário</h2>
 										
 										<div class="item form-group">
@@ -88,14 +88,497 @@
 										</div>
 
 										<div class="item form-group">
-											<label class="col-form-label col-md-4 col-sm-4 label-align" for="email">Endereço de email</label>
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="email">E-mail</label>
 											<div class="col-md-8 col-sm-8">
 												<input class="form-control" type="email" name="email" value="" required>
 											</div>
 										</div>
 
- 										<div class="ln_solid"></div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="senha">Senha</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="password" name="senha" value="" required>
+											</div>
+										</div>
 
+
+
+										<!-- Campo oculto para armazenar o código da categoria do usuário -->
+										<input class="form-control" type="hidden" name="categoria_usuario_id" value="2">
+
+										<hr class="my-6">
+
+										<h2 class="h5 font-weight-medium">Informações do Parceiro</h2>
+										<div class="item form-group d-flex align-items-center">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="tipo_pessoa">Tipo de pessoa</label>
+											<div class="col-md-8 col-sm-8">
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" name="tipo_pessoa" value="fisica" id="pessoaFisica" onclick="mostrarCampos()">
+													<label class="form-check-label" for="pessoaFisica">Física</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" name="tipo_pessoa" value="juridica" id="pessoaJuridica" onclick="mostrarCampos()">
+													<label class="form-check-label" for="pessoaJuridica">Jurídica</label>
+												</div>
+											</div>
+										</div>
+
+										<!-- Campos para Pessoa Física -->
+										<div id="camposFisica" style="display:none;">
+											<div class="item form-group">
+												<label class="col-form-label col-md-4 col-sm-4 label-align" for="rg">RG</label>
+												<div class="col-md-8 col-sm-8">
+													<input class="form-control" type="text" name="rg" value="">
+												</div>
+											</div>
+
+											<div class="item form-group">
+												<label class="col-form-label col-md-4 col-sm-4 label-align" for="cpf">CPF</label>
+												<div class="col-md-8 col-sm-8">
+													<input class="form-control" type="text" name="cpf" id="cpf" maxlength="14"> <!-- O maxlength é 14 para acomodar os pontos e o hífen -->
+												</div>
+											</div>
+
+											<script>
+												document.getElementById('cpf').addEventListener('input', function () {
+													let cpf = this.value.replace(/\D/g, '');
+													if (cpf.length <= 11) {
+														cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+														cpf = cpf.replace(/(\d{3})(\d)/, '$1.$2');
+														cpf = cpf.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+													}
+													this.value = cpf;
+												});
+											</script>
+											
+										</div>
+
+										<!-- Campos para Pessoa Jurídica -->
+										<div id="camposJuridica" style="display:none;">
+											<div class="item form-group">
+												<label class="col-form-label col-md-4 col-sm-4 label-align" for="cnpj">CNPJ</label>
+												<div class="col-md-8 col-sm-8">
+													<input class="form-control" type="text" name="cnpj" id="cnpj" maxlength="18"> <!-- O maxlength é 18 para acomodar os pontos, barra e hífen -->
+												</div>
+											</div>
+											
+											<script>
+												document.getElementById('cnpj').addEventListener('input', function () {
+													let cnpj = this.value.replace(/\D/g, '');
+													if (cnpj.length <= 14) {
+														cnpj = cnpj.replace(/(\d{2})(\d)/, '$1.$2');
+														cnpj = cnpj.replace(/(\d{3})(\d)/, '$1.$2');
+														cnpj = cnpj.replace(/(\d{3})(\d{4})/, '$1/$2');
+														cnpj = cnpj.replace(/(\d{4})(\d{2})$/, '$1-$2');
+													}
+													this.value = cnpj;
+												});
+											</script>
+
+											<div class="item form-group">
+												<label class="col-form-label col-md-4 col-sm-4 label-align" for="inscricao_estadual">Inscrição Estadual</label>
+												<div class="col-md-8 col-sm-8">
+													<input class="form-control" type="text" name="inscricao_estadual" value="">
+												</div>
+											</div>
+
+											<div class="item form-group">
+												<label class="col-form-label col-md-4 col-sm-4 label-align" for="inscricao_municipal">Inscrição Municipal</label>
+												<div class="col-md-8 col-sm-8">
+													<input class="form-control" type="text" name="inscricao_municipal" value="">
+												</div>
+											</div>
+										</div>
+
+										<!-- Campos em comum -->
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="nome_fantasia">Nome Fantasia</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="nome_fantasia" value="">
+											</div>
+										</div>
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="descricao">Descrição</label>
+											<div class="col-md-8 col-sm-8">
+												<textarea class="form-control" name="descricao"></textarea>
+											</div>
+										</div>
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="categoria_id">Categoria</label>
+											<div class="col-md-8 col-sm-8">
+												<select class="form-control" name="categoria_id">
+													<option value=""></option>
+												</select>
+											</div>
+										</div>
+
+										<div class="ln_solid"></div>
+
+										<h2 class="h5 font-weight-medium">Localização</h2>
+					
+										<div class="item form-group d-flex align-items-center">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="estacionamento">Estacionamento?</label>
+											<div class="col-md-8 col-sm-8">
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" name="estacionamento" value="0">
+													<label class="form-check-label">Não</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<input class="form-check-input" type="radio" name="estacionamento" value="1">
+													<label class="form-check-label">Sim</label>
+												</div>
+											</div>
+										</div>
+										
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="cep">CEP</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="cep" id="cep" maxlength="9" required>
+											</div>
+										</div>
+										
+										<script>
+											document.getElementById('cep').addEventListener('input', function () {
+												let cep = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+										
+												if (cep.length > 5) {
+													cep = cep.replace(/(\d{5})(\d)/, '$1-$2'); // Adiciona hífen após os primeiros 5 dígitos
+												}
+										
+												this.value = cep; // Atualiza o valor do campo com a máscara
+											});
+										</script>
+										
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="logradouro">Logradouro</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="logradouro" id="logradouro">
+											</div>
+										</div>
+										
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="numero">Número</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="numero" id="numero">
+											</div>
+										</div>
+										
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="bairro">Bairro</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="bairro" id="bairro">
+											</div>
+										</div>
+										
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="municipio">Município</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="localidade" id="localidade">
+											</div>
+										</div>
+
+										<!-- Campo oculto para armazenar o código IBGE -->
+										<input type="hidden" name="municipio_id" id="municipio_id">
+										
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="estado">Estado</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="uf" id="uf">
+											</div>
+										</div>
+					
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="latitude">Latitude</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="latitude" id="latitude" value="">
+											</div>
+										</div>
+										
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="longitude">Longitude</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="longitude" id="longitude" value="">
+											</div>
+										</div>
+										
+										<div class="item form-group">
+											<div class="col-md-8 col-sm-8 offset-md-4">
+												<button type="button" class="btn btn-success" onclick="getLocation()">Obter Localização</button>
+											</div>
+										</div>
+										
+										<script>
+											function getLocation() {
+												if ("geolocation" in navigator) {
+													navigator.geolocation.getCurrentPosition(
+														(position) => {
+															const latitude = position.coords.latitude;
+															const longitude = position.coords.longitude;
+											
+															// Preenche os campos de latitude e longitude
+															document.getElementById('latitude').value = latitude;
+															document.getElementById('longitude').value = longitude;
+														},
+														(error) => {
+															alert("Erro ao obter a localização: " + error.message);
+														}
+													);
+												} else {
+													alert("Geolocalização não é suportada neste navegador.");
+												}
+											}
+										</script>
+										
+										<div class="ln_solid"></div>
+
+										<h2 class="h5 font-weight-medium">Contato</h2>
+
+										
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="telefone">Telefone</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="telefones[]" id="telefone" maxlength="15"> <!-- maxlength é 15 para acomodar o formato completo -->
+											</div>
+										</div>
+										
+										<div id="telefones-container"></div>	
+										
+										<script>
+											document.getElementById('telefone').addEventListener('input', function () {
+												let telefone = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+												if (telefone.length <= 11) {
+													telefone = telefone.replace(/(\d{2})(\d)/, '($1) $2'); // Adiciona parênteses em volta do DDD
+													telefone = telefone.replace(/(\d{5})(\d)/, '$1-$2');    // Adiciona hífen após os primeiros 5 dígitos do número
+												}
+
+												this.value = telefone; // Atualiza o valor do campo com a máscara
+											});
+										</script>
+										
+										<div class="item form-group">
+											<div class="col-md-8 col-sm-8 offset-md-4">
+												<button type="button" class="btn btn-success" onclick="addTelefone()">Adicionar telefone</button>
+											</div>
+										</div>
+										
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="site">Site</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="site">
+											</div>
+										</div>
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="facebook">Facebook</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="facebook">
+											</div>
+										</div>
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="instagram">Instagram</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="instagram">
+											</div>
+										</div>
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="twitter">Twitter</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="twitter">
+											</div>
+										</div>
+
+										<div class="ln_solid"></div>
+
+										<h2 class="h5 font-weight-medium">Horário de Funcionamento</h2>
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="nome"></label>
+											<div class="col-md-8 col-sm-8">
+											
+												<!-- Abas para os dias da semana -->
+												<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+													<li class="nav-item">
+													<a class="nav-link active" id="seg-tab" data-toggle="pill" href="#seg" role="tab" aria-controls="seg" aria-selected="true">Seg</a>
+													</li>
+													<li class="nav-item">
+													<a class="nav-link" id="ter-tab" data-toggle="pill" href="#ter" role="tab" aria-controls="ter" aria-selected="false">Ter</a>
+													</li>
+													<li class="nav-item">
+													<a class="nav-link" id="qua-tab" data-toggle="pill" href="#qua" role="tab" aria-controls="qua" aria-selected="false">Qua</a>
+													</li>
+													<li class="nav-item">
+													<a class="nav-link" id="qui-tab" data-toggle="pill" href="#qui" role="tab" aria-controls="qui" aria-selected="false">Qui</a>
+													</li>
+													<li class="nav-item">
+													<a class="nav-link" id="sex-tab" data-toggle="pill" href="#sex" role="tab" aria-controls="sex" aria-selected="false">Sex</a>
+													</li>
+													<li class="nav-item">
+													<a class="nav-link" id="sab-tab" data-toggle="pill" href="#sab" role="tab" aria-controls="sab" aria-selected="false">Sáb</a>
+													</li>
+													<li class="nav-item">
+													<a class="nav-link" id="dom-tab" data-toggle="pill" href="#dom" role="tab" aria-controls="dom" aria-selected="false">Dom</a>
+													</li>
+												</ul>
+
+												<!-- Conteúdo das Abas -->
+												<div class="tab-content" id="pills-tabContent">
+													<!-- Estrutura padrão para cada dia da semana -->
+													<div class="tab-pane fade show active" id="seg" role="tabpanel" aria-labelledby="seg-tab">
+														<div class="d-flex flex-column mt-2" id="seg-horarios-0">
+															<button type="button" onclick="adicionarHorario('seg', 0)" class="btn btn-sm btn-success">Adicionar Horário</button>
+														</div>
+													</div>
+
+													<div class="tab-pane fade" id="ter" role="tabpanel" aria-labelledby="ter-tab">
+														<div class="d-flex flex-column mt-2" id="ter-horarios-0">
+															<button type="button" onclick="adicionarHorario('ter', 0)" class="btn btn-sm btn-success">Adicionar Horário</button>
+														</div>
+													</div>
+
+													<div class="tab-pane fade" id="qua" role="tabpanel" aria-labelledby="qua-tab">
+														<div class="d-flex flex-column mt-2" id="qua-horarios-0">
+															<button type="button" onclick="adicionarHorario('qua', 0)" class="btn btn-sm btn-success">Adicionar Horário</button>
+														</div>
+													</div>
+
+													<div class="tab-pane fade" id="qui" role="tabpanel" aria-labelledby="qui-tab">
+														<div class="d-flex flex-column mt-2" id="qui-horarios-0">
+															<button type="button" onclick="adicionarHorario('qui', 0)" class="btn btn-sm btn-success">Adicionar Horário</button>
+														</div>
+													</div>
+
+													<div class="tab-pane fade" id="sex" role="tabpanel" aria-labelledby="sex-tab">
+														<div class="d-flex flex-column mt-2" id="sex-horarios-0">
+															<button type="button" onclick="adicionarHorario('sex', 0)" class="btn btn-sm btn-success">Adicionar Horário</button>
+														</div>
+													</div>
+
+													<div class="tab-pane fade" id="sab" role="tabpanel" aria-labelledby="sab-tab">
+														<div class="d-flex flex-column mt-2" id="sab-horarios-0">
+															<button type="button" onclick="adicionarHorario('sab', 0)" class="btn btn-sm btn-success">Adicionar Horário</button>
+														</div>
+													</div>
+
+													<div class="tab-pane fade" id="dom" role="tabpanel" aria-labelledby="dom-tab">
+														<div class="d-flex flex-column mt-2" id="dom-horarios-0">
+															<button type="button" onclick="adicionarHorario('dom', 0)" class="btn btn-sm btn-success">Adicionar Horário</button>
+														</div>
+													</div>
+												</div>	
+										
+											</div>
+										</div>
+
+										<div class="ln_solid"></div>
+			
+										<h2 class="h5 font-weight-medium">Fotos</h2>
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align" for="midia[]"></label>
+											<div class="col-md-8 col-sm-8">
+												<div class="row">
+													<!-- 1º Arquivo -->
+													<div class="col-md-4">
+													  <div class="upload-area" onclick="document.getElementById('fileInput1').click()">
+														<div id="preview1" class="file-preview">
+														  <svg class="svg-placeholder" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24">
+															<path d="M2 18l4.59-4.59a2 2 0 012.82 0L12 16M2 18V8a2 2 0 012-2h7.5M2 18v2a2 2 0 002 2h12a2 2 0 002-2v-4m-6 0l2 2m-2-2l1.59-1.59a2 2 0 012.82 0L18 16m0 0v-3.17M12 10h.01M18 2v8m4-4h-8"></path>
+														  </svg>
+														</div>
+														<input type="file" id="fileInput1" class="d-none" name="imagens" accept="image/*" onchange="previewFile(1)">
+													  </div>
+													</div>
+												
+													<!-- 2º Arquivo -->
+													<div class="col-md-4">
+													  <div class="upload-area" onclick="document.getElementById('fileInput2').click()">
+														<div id="preview2" class="file-preview">
+														  <svg class="svg-placeholder" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24">
+															<path d="M2 18l4.59-4.59a2 2 0 012.82 0L12 16M2 18V8a2 2 0 012-2h7.5M2 18v2a2 2 0 002 2h12a2 2 0 002-2v-4m-6 0l2 2m-2-2l1.59-1.59a2 2 0 012.82 0L18 16m0 0v-3.17M12 10h.01M18 2v8m4-4h-8"></path>
+														  </svg>
+														</div>
+														<input type="file" id="fileInput2" class="d-none" name="imagens" accept="image/*" onchange="previewFile(2)">
+													  </div>
+													</div>
+												
+													<!-- 3º Arquivo -->
+													<div class="col-md-4">
+													  <div class="upload-area" onclick="document.getElementById('fileInput3').click()">
+														<div id="preview3" class="file-preview">
+														  <svg class="svg-placeholder" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24">
+															<path d="M2 18l4.59-4.59a2 2 0 012.82 0L12 16M2 18V8a2 2 0 012-2h7.5M2 18v2a2 2 0 002 2h12a2 2 0 002-2v-4m-6 0l2 2m-2-2l1.59-1.59a2 2 0 012.82 0L18 16m0 0v-3.17M12 10h.01M18 2v8m4-4h-8"></path>
+														  </svg>
+														</div>
+														<input type="file" id="fileInput3" class="d-none" name="imagens" accept="image/*" onchange="previewFile(3)">
+													  </div>
+													</div>
+												  </div>
+												
+												  <div class="row mt-4">
+													<!-- 4º Arquivo -->
+													<div class="col-md-4">
+													  <div class="upload-area" onclick="document.getElementById('fileInput4').click()">
+														<div id="preview4" class="file-preview">
+														  <svg class="svg-placeholder" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24">
+															<path d="M2 18l4.59-4.59a2 2 0 012.82 0L12 16M2 18V8a2 2 0 012-2h7.5M2 18v2a2 2 0 002 2h12a2 2 0 002-2v-4m-6 0l2 2m-2-2l1.59-1.59a2 2 0 012.82 0L18 16m0 0v-3.17M12 10h.01M18 2v8m4-4h-8"></path>
+														  </svg>
+														</div>
+														<input type="file" id="fileInput4" class="d-none" name="imagens" accept="image/*" onchange="previewFile(4)">
+													  </div>
+													</div>
+												
+													<!-- 5º Arquivo -->
+													<div class="col-md-4">
+													  <div class="upload-area" onclick="document.getElementById('fileInput5').click()">
+														<div id="preview5" class="file-preview">
+														  <svg class="svg-placeholder" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24">
+															<path d="M2 18l4.59-4.59a2 2 0 012.82 0L12 16M2 18V8a2 2 0 012-2h7.5M2 18v2a2 2 0 002 2h12a2 2 0 002-2v-4m-6 0l2 2m-2-2l1.59-1.59a2 2 0 012.82 0L18 16m0 0v-3.17M12 10h.01M18 2v8m4-4h-8"></path>
+														  </svg>
+														</div>
+														<input type="file" id="fileInput5" class="d-none" name="imagens" accept="image/*" onchange="previewFile(5)">
+													  </div>
+													</div>
+												
+													<!-- 6º Arquivo -->
+													<div class="col-md-4">
+													  <div class="upload-area" onclick="document.getElementById('fileInput6').click()">
+														<div id="preview6" class="file-preview">
+														  <svg class="svg-placeholder" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24">
+															<path d="M2 18l4.59-4.59a2 2 0 012.82 0L12 16M2 18V8a2 2 0 012-2h7.5M2 18v2a2 2 0 002 2h12a2 2 0 002-2v-4m-6 0l2 2m-2-2l1.59-1.59a2 2 0 012.82 0L18 16m0 0v-3.17M12 10h.01M18 2v8m4-4h-8"></path>
+														  </svg>
+														</div>
+														<input type="file" id="fileInput6" class="d-none" name="imagens" accept="image/*" onchange="previewFile(6)">
+													  </div>
+													</div>
+												
+												  </div>
+											</div>
+										</div>
+
+										<script>
+											function previewFile(id) {
+											  const fileInput = document.getElementById(`fileInput${id}`);
+											  const preview = document.getElementById(`preview${id}`);
+											  const file = fileInput.files[0];
+										  
+											  if (file) {
+												const reader = new FileReader();
+												reader.onload = function() {
+												  preview.innerHTML = `<img src="${reader.result}" alt="Preview">`;
+												};
+												reader.readAsDataURL(file);
+											  } else {
+												preview.innerHTML = `<svg class="svg-placeholder" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" viewBox="0 0 24 24"><path d="M2 18l4.59-4.59a2 2 0 012.82 0L12 16M2 18V8a2 2 0 012-2h7.5M2 18v2a2 2 0 002 2h12a2 2 0 002-2v-4m-6 0l2 2m-2-2l1.59-1.59a2 2 0 012.82 0L18 16m0 0v-3.17M12 10h.01M18 2v8m4-4h-8"></path></svg>`;
+											  }
+											}
+										  </script>
+			
+										<div class="ln_solid"></div>
+			
 										<div class="item form-group">
 											<div class="col-md-8 col-sm-8 offset-md-4">
 												<button type="submit" class="btn btn-success">Salvar</button>
@@ -103,6 +586,162 @@
 										</div>
 			
 									</form>
+
+
+									<script>
+										// Função para carregar o CEP
+										document.getElementById('cep').addEventListener('input', function () {
+											const cep = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+									
+											if (cep.length === 8) { // Se o CEP tiver 8 dígitos, faz a consulta
+												fetch(`https://viacep.com.br/ws/${cep}/json/`)
+													.then(response => response.json())
+													.then(data => {
+														if (!data.erro) {
+															document.getElementById('logradouro').value = data.logradouro || '';
+															document.getElementById('bairro').value = data.bairro || '';
+															document.getElementById('uf').value = data.uf || '';
+															document.getElementById('localidade').value = data.localidade || '';
+															document.getElementById('municipio_id').value = data.ibge || ''; // Armazena o código IBGE
+														} else {
+															alert('CEP não encontrado.');
+														}
+													})
+													.catch(error => console.error('Erro na consulta ao ViaCEP:', error));
+											}
+										});
+									</script>
+
+									<script>
+										function mostrarCampos() {
+											var pessoaFisica = document.getElementById('pessoaFisica').checked;
+											var pessoaJuridica = document.getElementById('pessoaJuridica').checked;
+
+											document.getElementById('camposFisica').style.display = pessoaFisica ? 'block' : 'none';
+											document.getElementById('camposJuridica').style.display = pessoaJuridica ? 'block' : 'none';
+										}
+									</script>
+
+									<script>
+									    // Função para carregar as categorias e preencher o select
+										async function carregarCategorias() {
+											try {
+												const response = await fetch('/categorias/parceiros');
+												const categorias = await response.json();
+												
+												// Populando o select de categorias
+												const selectCategoria = document.querySelector('select[name="categoria_id"]');
+												categorias.forEach(categoria => {
+													const option = document.createElement('option');
+													option.value = categoria.id;
+													option.textContent = categoria.nome;
+													selectCategoria.appendChild(option);
+												});
+											} catch (error) {
+												console.error('Erro ao carregar estados:', error);
+											}
+
+										}
+
+										// Carregar as categorias quando a página carregar
+										window.addEventListener('load', carregarCategorias);
+									</script>
+
+									<script>
+										let telefoneIndex = 1; // Começa em 1 porque já existe o primeiro campo
+										const maxTelefones = 3; // Define o limite de 3 telefones
+
+										function addTelefone() {
+											// Verifica se o número de campos já atingiu o limite
+											const totalTelefones = document.querySelectorAll('input[name="telefones[]"]').length;
+											if (totalTelefones >= maxTelefones) {
+												alert("Você só pode adicionar no máximo 3 telefones.");
+												return;
+											}
+
+											// Cria o novo campo de telefone com id único
+											const novoTelefone = `
+												<div class="item form-group" id="telefone-${telefoneIndex}">
+													<label class="col-form-label col-md-4 col-sm-4 label-align" for="telefones">Telefone</label>
+													<div class="col-md-8 col-sm-8">
+														<div class="input-group" style="margin-bottom: -5px">
+															<input class="form-control telefone-mask" type="text" name="telefones[]" id="telefone-input-${telefoneIndex}" maxlength="15">
+															<div class="input-group-append">
+																<button type="button" class="btn btn-danger" onclick="removeTelefone(${telefoneIndex})"> - </button>
+															</div>
+														</div>
+													</div>
+												</div>
+											`;
+
+											// Insere o novo campo no container
+											document.getElementById('telefones-container').insertAdjacentHTML('beforeend', novoTelefone);
+
+											// Aplica a máscara ao novo campo de telefone
+											applyPhoneMask(`telefone-input-${telefoneIndex}`);
+
+											telefoneIndex++; // Incrementa o índice
+										}
+
+										// Função para remover o campo de telefone
+										function removeTelefone(index) {
+											const telefoneField = document.getElementById(`telefone-${index}`);
+											telefoneField.remove();
+										}
+
+										// Função para aplicar a máscara de telefone
+										function applyPhoneMask(elementId) {
+											const telefoneInput = document.getElementById(elementId);
+											telefoneInput.addEventListener('input', function () {
+												let telefone = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+
+												if (telefone.length <= 11) {
+													telefone = telefone.replace(/(\d{2})(\d)/, '($1) $2'); // Adiciona parênteses em volta do DDD
+													telefone = telefone.replace(/(\d{5})(\d)/, '$1-$2');    // Adiciona hífen após os primeiros 5 dígitos do número
+												}
+
+												this.value = telefone; // Atualiza o valor do campo com a máscara
+											});
+										}
+
+										// Aplica a máscara ao campo de telefone inicial (caso já exista)
+										applyPhoneMask('telefone-input-0');
+
+									</script>
+
+									<script>
+										// Função para adicionar horários dinamicamente até o limite de 2
+										function adicionarHorario(dia, index) {
+										const container = document.getElementById(`${dia}-horarios-${index}`);
+										const horarios = container.getElementsByClassName('horario-group');
+
+										if (horarios.length < 2) { // Limite de 2 horários
+											const newHorario = document.createElement('div');
+											newHorario.classList.add('horario-group', 'd-flex', 'align-items-center', 'mt-2');
+											newHorario.innerHTML = `
+											<input type="time" name="horarios[${index}][${dia}][inicio][]" class="form-control" placeholder="Início">
+											<input type="time" name="horarios[${index}][${dia}][fim][]" class="form-control" placeholder="Fim">
+											<button type="button" onclick="removerHorario(this)" class="btn btn-sm btn-danger ml-2">Remover</button>
+											`;
+											container.appendChild(newHorario);
+										} else {
+											alert("Você pode adicionar até 2 horários por dia.");
+										}
+										}
+
+										// Função para remover horários
+										function removerHorario(button) {
+										button.parentElement.remove();
+										}
+									</script>
+			
+									<script>
+										const urlParams = new URLSearchParams(window.location.search);
+										const success = urlParams.get('success');
+										if (success === 'true') {
+											alert('Parceiro adicionado com sucesso!');
+										}
+									</script>
 
 								</div>
 							</div>
@@ -159,4 +798,5 @@
 	<!-- Custom Theme Scripts -->
 	<script src="../../build/js/custom.min.js"></script>
 
-  </body></html>
+  </body
+  </html>

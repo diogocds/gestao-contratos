@@ -1,32 +1,31 @@
 CREATE DATABASE gestao_contratos;
 
+CREATE TABLE tipo_usuario (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+INSERT INTO tipo_usuario (nome)
+VALUES
+('Admin'),
+('Locatário');
 
 CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     senha VARCHAR(255),
+    cpf VARCHAR(14),
+    data_nascimento VARCHAR(10),
+    tipo_usuario_id INTEGER REFERENCES ipo_usuario(id) ON DELETE CASCADE,
     ativo BOOLEAN DEFAULT false NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
-INSERT INTO usuarios (nome, email, senha, ativo)
-VALUES 
-('Diogo Fez', 'diogofez@gmail.com', '123456', true);
-
-
-CREATE TABLE clientes (
-  id SERIAL PRIMARY KEY,
-  nome VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL UNIQUE,
-  cpf VARCHAR(14),
-  data_nascimento VARCHAR(10),
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
-);
-
-INSERT INTO clientes (nome, email, cpf, data_nascimento)
+INSERT INTO usuarios (nome, email, senha, ativo, cpf, data_nascimento, tipo_usuario_id )
 VALUES 
 ('Adrian', 'adrian@gmail.com', '000.000.000-00', 1985-01-01),
 ('Diogo', 'diogo@gmail.com', '000.000.000-00', 1980-01-01),
@@ -38,12 +37,12 @@ VALUES
 CREATE TABLE telefones (
 	id SERIAL PRIMARY KEY,
 	numero VARCHAR(255) NOT NULL,
-	clientes_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE,
+	tipo_usuario_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE,
 	created_at TIMESTAMP DEFAULT NOW(),
 	updated_at TIMESTAMP DEFAULT NOW()
 );
 
-INSERT INTO telefones (numero, clientes_id)
+INSERT INTO telefones (numero, tipo_usuario_id)
 VALUES 
 ('(84)00000-0000', 1),
 ('(84)00000-0000', 2),
@@ -58,12 +57,12 @@ CREATE TABLE enderecos (
 	numero INTEGER,
 	cep VARCHAR(9) NOT NULL,
 	bairro VARCHAR(255) NOT NULL,
-	clientes_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE,
+	tipo_usuario_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE,
 	created_at TIMESTAMP DEFAULT NOW(),
 	updated_at TIMESTAMP DEFAULT NOW()
 );
 
-INSERT INTO enderecos (logradouro, numero, cep, bairro, clientes_id)
+INSERT INTO enderecos (logradouro, numero, cep, bairro, tipo_usuario_id)
 VALUES 
 ('Rua Devs', 100, 59084-000, 'Neópolis', 1),
 ('Rua Devs', 100, 59084-000, 'Neópolis', 2),
@@ -78,12 +77,12 @@ CREATE TABLE cnhs (
     numero_registro VARCHAR(20) NOT NULL,
     categoria VARCHAR(5) NOT NULL,
     validade DATE NOT NULL,
-    clientes_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE,
+    tipo_usuario_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
-INSERT INTO cnhs (numero, numero_registro, categoria, validade, clientes_id)
+INSERT INTO cnhs (numero, numero_registro, categoria, validade, tipo_usuario_id)
 VALUES 
 ('00000000', '00000100', 'B', '2030-01-01', 1),
 ('00000000', '00000100', 'B', '2030-01-01', 2),
@@ -148,14 +147,14 @@ CREATE TABLE contratos (
     data_retorno VARCHAR(10) NOT NULL,
     data_fim VARCHAR(10),
     ativo BOOLEAN DEFAULT true NOT NULL,
-    clientes_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE,
+    tipo_usuario_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE,
     veiculos_id INTEGER REFERENCES veiculos(id) ON DELETE CASCADE,
     checklist_id INTEGER REFERENCES checklist(id) ON DELETE CASCADE,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
-INSERT INTO contratos (clausulas, data_inicio, data_retorno, data_fim, ativo, clientes_id, veiculos_id, checklist_id)
+INSERT INTO contratos (clausulas, data_inicio, data_retorno, data_fim, ativo, tipo_usuario_id, veiculos_id, checklist_id)
 VALUES 
 ('Você alugou um veículo', '2030-01-01', '2030-01-01', '2030-01-01', true, 1, 1, 1),
 ('Você alugou um veículo', '2030-01-01', '2030-01-01', '2030-01-01', true, 2, 2, 1),
