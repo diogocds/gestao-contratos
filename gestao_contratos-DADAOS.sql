@@ -37,7 +37,7 @@ VALUES
 CREATE TABLE telefones (
 	id SERIAL PRIMARY KEY,
 	numero VARCHAR(255) NOT NULL,
-	tipo_usuario_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE,
+	tipo_usuario_id INTEGER REFERENCES tipo_usuario(id) ON DELETE CASCADE,
 	created_at TIMESTAMP DEFAULT NOW(),
 	updated_at TIMESTAMP DEFAULT NOW()
 );
