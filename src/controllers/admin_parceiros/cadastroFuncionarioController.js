@@ -2,12 +2,12 @@ const pool = require('../../config/conexao');
 const path = require('path');
 
 // Rota para a página cadastrar orientações
-const listarParceirosWeb = (req, res) => {
-    res.sendFile(path.join(__dirname, '../../public/admin/admin_view_parceiros', 'listar_parceiros.html'));
+const cadastroFuncionarioWeb = (req, res) => {
+    res.sendFile(path.join(__dirname, '../../public/admin/admin_view_usuarios', 'cadastroFuncionario.html'));
 };
 
 // Obter todas as categorias
-const listarParceirosController = async (req, res) => { 
+const cadastroFuncionarioController = async (req, res) => { 
   try {
     const categorias = await pool.query(
       'SELECT * FROM pontos_turisticos ORDER BY nome'
@@ -22,6 +22,6 @@ const listarParceirosController = async (req, res) => {
 };
 
 module.exports = {
-  listarParceirosWeb,
-  listarParceirosController
+  cadastroFuncionarioWeb,
+  cadastroFuncionarioController
 }

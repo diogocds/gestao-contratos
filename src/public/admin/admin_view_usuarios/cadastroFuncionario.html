@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="./cadastros.js" defer></script>
+	<link rel="icon" href="images/favicon.ico" type="image/ico" />
+	<!-- Bootstrap -->
+	<link href="../../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link href="../../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<!-- NProgress -->
+	<link href="../../vendors/nprogress/nprogress.css" rel="stylesheet">
+	<!-- iCheck -->
+	<link href="../../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+	<!-- bootstrap-wysiwyg -->
+	<link href="../../vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
+	<!-- Select2 -->
+	<link href="../../vendors/select2/dist/css/select2.min.css" rel="stylesheet">
+	<!-- Switchery -->
+	<link href="../../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
+	<!-- starrr -->
+	<link href="../../vendors/starrr/dist/starrr.css" rel="stylesheet">
+	<!-- bootstrap-daterangepicker -->
+	<link href="../../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+	<!-- Custom Theme Style -->
+	<link href="../../build/css/custom.min.css" rel="stylesheet">
+	<!-- Importando o Menu -->
+	<script src="../../admin/components/menu_left/index.js"></script>
+	<script src="../../admin/components/menu_top/index.js"></script>
+	<script src="../../admin/components/menu_footer/index.js"></script>
+
+	<title>Admin - Gestão de Contratos</title>
+
+</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<div class="col-md-3 left_col">
+				<div class="left_col scroll-view">
+					<div class="navbar nav_title" style="border: 0; padding-left: 20px;">
+						<a href="/admin/index.html" class="site_title"><span>ADM Gestão Contratos</span></a>
+					</div>
+
+					<div class="clearfix"></div>
+					<br />
+					<!-- sidebar menu -->
+					<menu-left></menu-left>
+					<!-- /sidebar menu -->
+				</div>
+			</div>
+
+			<!-- top navigation -->
+			<menu-top></menu-top>
+			<!-- /top navigation -->
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<div class="">
+					<div class="page-title">
+						<div class="title_left">
+							<h3>Cadastrar Funcionário</h3>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="row">
+						<div class="col-md-12 col-sm-12">
+							<div class="x_panel">
+								<div class="x_content">
+									<form action="/parceiros" method="POST" id="formParceiros"
+										enctype="multipart/form-data" data-parsley-validate
+										class="form-horizontal form-label-left">
+										<h2 class="h5 font-weight-medium">Dados do Funcionário</h2>
+										
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align"
+												for="nome">Nome</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="nome" value="" required>
+											</div>
+										</div>
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align"
+												for="email">E-mail</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="email" name="email" value="" required>
+											</div>
+										</div>
+										
+										<div class="item form-group">
+											<label class="col-form-label col-md-4 col-sm-4 label-align"
+												for="telefone">Telefone</label>
+											<div class="col-md-8 col-sm-8">
+												<input class="form-control" type="text" name="telefones[]" id="telefone"
+													maxlength="15">
+											</div>
+										</div>
+
+										<div id="telefones-container"></div>
+
+										<!-- Pegando Telefone -->
+
+										<div class="item form-group">
+											<div class="col-md-8 col-sm-8 offset-md-4">
+												<button type="button" class="btn btn-success"
+													onclick="addTelefone()">Adicionar telefone</button>
+											</div>
+										</div>
+								
+										<div class="ln_solid"></div>
+
+										<div class="item form-group">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="numero_cnh">Número da CNH</label>
+                                            <div class="col-md-8 col-sm-8">
+                                                <input class="form-control" type="text" name="numero_cnh" id="numero_cnh" maxlength="11" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="categoria_cnh">Categoria da CNH</label>
+                                            <div class="col-md-8 col-sm-8">
+                                                <select class="form-control" name="categoria_cnh" id="categoria_cnh" required>
+                                                    <option value="A">A</option>
+                                                    <option value="B">B</option>
+                                                    <option value="C">C</option>
+                                                    <option value="D">D</option>
+                                                    <option value="E">E</option>
+                                                    <option value="AB">AB</option>
+                                                    <option value="BD">BD</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="data_emissao_cnh">Data de Emissão</label>
+                                            <div class="col-md-8 col-sm-8">
+                                                <input class="form-control" type="date" name="data_emissao_cnh" id="data_emissao_cnh" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="data_validade_cnh">Data de Validade</label>
+                                            <div class="col-md-8 col-sm-8">
+                                                <input class="form-control" type="date" name="data_validade_cnh" id="data_validade_cnh" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="item form-group">
+                                            <label class="col-form-label col-md-4 col-sm-4 label-align" for="imagem_cnh">Imagem da CNH</label>
+                                            <div class="col-md-8 col-sm-8">
+                                                <input class="form-control" type="file" name="imagem_cnh" id="imagem_cnh" accept="image/*">
+                                            </div>
+                                        </div>
+										
+
+										<div class="ln_solid"></div>
+
+										<div class="item form-group">
+											<div class="col-md-8 col-sm-8 offset-md-4">
+												<button type="submit" class="btn btn-success">Salvar</button>
+											</div>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- footer content -->
+			<menu-footer></menu-footer>
+			<!-- /footer content -->
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script src="../../vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="../../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- FastClick -->
+	<script src="../../vendors/fastclick/lib/fastclick.js"></script>
+	<!-- NProgress -->
+	<script src="../../vendors/nprogress/nprogress.js"></script>
+	<!-- bootstrap-progressbar -->
+	<script src="../../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+	<!-- iCheck -->
+	<script src="../../vendors/iCheck/icheck.min.js"></script>
+	<!-- bootstrap-daterangepicker -->
+	<script src="../../vendors/moment/min/moment.min.js"></script>
+	<script src="../../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- bootstrap-wysiwyg -->
+	<script src="../../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+	<script src="../../vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
+	<script src="../../vendors/google-code-prettify/src/prettify.js"></script>
+	<!-- jQuery Tags Input -->
+	<script src="../../vendors/jquery.tagsinput/src/jquery.tagsinput.js"></script>
+	<!-- Switchery -->
+	<script src="../../vendors/switchery/dist/switchery.min.js"></script>
+	<!-- Select2 -->
+	<script src="../../vendors/select2/dist/js/select2.full.min.js"></script>
+	<!-- Parsley -->
+	<script src="../../vendors/parsleyjs/dist/parsley.min.js"></script>
+
+	<!-- Parsley PT-BR -->
+	<script src="../../vendors/parsleyjs/dist/i18n/pt-br.js"></script>
+
+	<!-- Autosize -->
+	<script src="../../vendors/autosize/dist/autosize.min.js"></script>
+	<!-- jQuery autocomplete -->
+	<script src="../../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+	<!-- starrr -->
+	<script src="../../vendors/starrr/dist/starrr.js"></script>
+	<!-- Custom Theme Scripts -->
+	<script src="../../build/js/custom.min.js"></script>
+
+</html>
+
+</body
+
+
+
+    

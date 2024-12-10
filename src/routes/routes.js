@@ -2,8 +2,8 @@ const express = require('express');
 
 
 // MODELO 
-const { listarParceirosController, listarParceirosWeb } = require('../controllers/admin_parceiros/listarParceirosController');
-const { criarParceirosController, criarParceirosWeb } = require('../controllers/admin_parceiros/criarParceirosController');
+const { cadastroFuncionarioController, cadastroFuncionarioWeb} = require('../controllers/admin_parceiros/cadastroFuncionarioController');
+const { criarUsuariosController, criarUsuariosWeb } = require('../controllers/admin_parceiros/criarUsuariosController');
 // MODELO 
 
 
@@ -57,12 +57,12 @@ const rotas = express()
 
 // MODELO 
 // Parceiros - Rotas para páginas HTML do Admin
-rotas.get('/admin/parceiros/criar', criarParceirosWeb);
-rotas.get('/admin/parceiros/listar', listarParceirosWeb);
+rotas.get('/admin/parceiros/criar', criarUsuariosWeb);
+rotas.get('/admin/parceiros/listar', cadastroFuncionarioWeb);
 
 // Rotas para Parceiros
-rotas.post('/parceiros', criarParceirosController);
-rotas.get('/parceiros', listarParceirosController);
+rotas.post('/parceiros', criarUsuariosController);
+rotas.get('/parceiros', cadastroFuncionarioController);
 // MODELO 
 
 
