@@ -10,6 +10,27 @@ document.getElementById("cpf").addEventListener("input", function () {
   this.value = cpf;
 });
 
+async function carregarTipoUsuarios() {
+  try {
+    const response = await fetch("/admin/tipo_usuarios");
+    const tipoUsuario = await response.json();
+    const selectTipoUsuario = document.querySelector(
+      'select[name="tipo_usuario"]'
+    );
+    tipoUsuario.forEach((tipo) => {
+      const option = document.createElement("option");
+      option.value = tipo.id;
+      option.textContent = tipo.descricao;
+      selectTipoUsuario.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Erro ao carregar o Tipo de Usuário:", erro);
+  }
+}
+
+// Carregar as tipos de usuários quando a página carregar
+window.addEventListener("load", carregarTipoUsuarios);
+
 // Pegando Telefones
 
 document.getElementById("telefone").addEventListener("input", function () {

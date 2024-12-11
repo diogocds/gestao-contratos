@@ -6,9 +6,9 @@ const {
   cadastroFuncionarioWeb,
 } = require("../controllers/admin_parceiros/cadastroFuncionarioController");
 const {
-  cadastroLocatarioController,
-  cadastroLocatarioWeb,
-} = require("../controllers/admin_parceiros/cadastroLocatarioController");
+  cadastroUsuarioController,
+  cadastroUsuarioWeb,
+} = require("../controllers/admin_parceiros/cadastroUsuarioController");
 // MODELO
 
 const listarClienteControlador = require("../controllers/clientes/listarClienteControlador");
@@ -54,16 +54,20 @@ const criarChecklistControlador = require("../controllers/checklist/criarCheckli
 const deletarChecklistControlador = require("../controllers/checklist/deletarChecklistControlador");
 const logarUsuarioControlador = require("../controllers/usuarios/loginControlador");
 const verificarUsuarioLogado = require("../intermediarios/verificarUsuarioLogado");
+const {
+  listarTipoUsuarioController,
+} = require("../controllers/admin_parceiros/listarTipoUsuario");
 
 const rotas = express();
 
 // MODELO
 // Parceiros - Rotas para páginas HTML do Admin
-rotas.get("/admin/parceiros/criar", cadastroLocatarioWeb);
+rotas.get("/admin/parceiros/criar", cadastroUsuarioWeb);
 rotas.get("/admin/parceiros/listar", cadastroFuncionarioWeb);
+rotas.get("/admin/tipo_usuarios", listarTipoUsuarioController);
 
-// Rotas para Parceiros
-rotas.post("/parceiros", cadastroLocatarioController);
+// Rotas para Usuarios
+rotas.post("/parceiros", cadastroUsuarioController);
 rotas.get("/parceiros", cadastroFuncionarioController);
 // MODELO
 

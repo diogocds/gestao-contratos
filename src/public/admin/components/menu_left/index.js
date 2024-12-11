@@ -1,6 +1,6 @@
 class MenuLeft extends HTMLElement {
-    connectedCallback() {
-        this.innerHTML = `
+  connectedCallback() {
+    this.innerHTML = `
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
@@ -14,8 +14,8 @@ class MenuLeft extends HTMLElement {
                       Cadastros <span class="fa fa-chevron-down"></span>
                     </a>
                     <ul class="nav child_menu">
-                      <li><a href="/admin/parceiros/criar">Cadastro Locatário</a></li>
-                      <li><a href="/admin/parceiros/listar">Cadastro Fucionário</a></li>
+                      <li><a href="/admin/parceiros/criar">Cadastrar Usuários</a></li>
+                      <li><a href="/admin/parceiros/listar">Listar Usuários</a></li>
                     </ul>
                   </li>
                   
@@ -40,8 +40,8 @@ class MenuLeft extends HTMLElement {
               </a>
             </div>
             <!-- /menu footer buttons -->
-        `
-    }
+        `;
+  }
 }
 
-customElements.define('menu-left', MenuLeft);
+customElements.define("menu-left", MenuLeft);

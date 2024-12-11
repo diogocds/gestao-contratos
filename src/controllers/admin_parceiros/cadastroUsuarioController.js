@@ -3,18 +3,18 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 
 // Rota para a página criar Parceiros
-const cadastroLocatarioWeb = (req, res) => {
+const cadastroUsuarioWeb = (req, res) => {
   res.sendFile(
     path.join(
       __dirname,
       "../../public/admin/admin_view_usuarios",
-      "cadastroLocatario.html"
+      "cadastroUsuario.html"
     )
   );
 };
 
 // Rota para criar um novo Parceiro
-const cadastroLocatarioController = async (req, res) => {
+const cadastroUsuarioController = async (req, res) => {
   const {
     nome,
     email,
@@ -125,6 +125,6 @@ const cadastroLocatarioController = async (req, res) => {
 };
 
 module.exports = {
-  cadastroLocatarioWeb,
-  cadastroLocatarioController,
+  cadastroUsuarioController,
+  cadastroUsuarioWeb,
 };

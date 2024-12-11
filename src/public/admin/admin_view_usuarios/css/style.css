@@ -1,0 +1,35 @@
+/* Remove a borda e o fundo do input */
+.custom-file-input {
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+  font-size: 14px;
+  color: #495057;
+  display: none; /* Oculta o campo de arquivo padrão */
+}
+
+/* Estilizando o rótulo associado */
+.custom-file-label {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  color: #495057;
+}
+
+.custom-file-label:hover {
+  background-color: #e9ecef;
+}
+
+/* Quando um arquivo for selecionado, exibe o nome do arquivo */
+.custom-file-input:focus + .custom-file-label {
+  outline: none;
+  box-shadow: none;
+}
+
+.custom-file-input:valid + .custom-file-label::after {
+  content: "Arquivo Selecionado";
+}

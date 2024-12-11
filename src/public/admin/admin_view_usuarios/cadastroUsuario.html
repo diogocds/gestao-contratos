@@ -45,12 +45,13 @@
     />
     <!-- Custom Theme Style -->
     <link href="../../build/css/custom.min.css" rel="stylesheet" />
+    <link href="../admin_view_usuarios/css/inputCnh.css" rel="stylesheet" />
     <!-- Importando o Menu -->
     <script src="../../admin/components/menu_left/index.js"></script>
     <script src="../../admin/components/menu_top/index.js"></script>
     <script src="../../admin/components/menu_footer/index.js"></script>
     <script src="../admin_view_usuarios/cadastros.js" defer></script>
-
+    <link rel="stylesheet" href="../admin_view_usuarios/css/style.css" />
     <title>Admin - Gestão de Contratos</title>
   </head>
 
@@ -82,7 +83,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Cadastrar Locatário</h3>
+                <h3>Cadastrar Usuários</h3>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -98,8 +99,24 @@
                       data-parsley-validate
                       class="form-horizontal form-label-left"
                     >
-                      <h2 class="h5 font-weight-medium">Dados do Locatário</h2>
-
+                      <h2 class="h5 font-weight-medium">Dados do Usuário</h2>
+                      <div class="item form-group">
+                        <label
+                          class="col-form-label col-md-4 col-sm-4 label-align"
+                          for="tipo_usuario"
+                          >Tipo de Usuário</label
+                        >
+                        <div class="col-md-8 col-sm-8">
+                          <select
+                            class="form-control"
+                            name="tipo_usuario"
+                            id="tipo_usuario"
+                            required
+                          >
+                            <option value=""></option>
+                          </select>
+                        </div>
+                      </div>
                       <div class="item form-group">
                         <label
                           class="col-form-label col-md-4 col-sm-4 label-align"
@@ -315,18 +332,6 @@
                           />
                         </div>
                       </div>
-
-                      <div class="item form-group">
-                        <div class="col-md-8 col-sm-8 offset-md-4">
-                          <button
-                            type="button"
-                            class="btn btn-success"
-                            onclick="getLocation()"
-                          >
-                            Obter Localização
-                          </button>
-                        </div>
-                      </div>
                       <div class="item form-group">
                         <label
                           class="col-form-label col-md-4 col-sm-4 label-align"
@@ -403,24 +408,28 @@
                         </div>
                       </div>
 
-                      <div class="item form-group">
+                      <div class="item form-group row">
                         <label
                           class="col-form-label col-md-4 col-sm-4 label-align"
                           for="imagem_cnh"
-                          >Imagem da CNH</label
                         >
+                          Imagem da CNH
+                        </label>
                         <div class="col-md-8 col-sm-8">
-                          <input
-                            class="form-control"
-                            type="file"
-                            name="imagem_cnh"
-                            id="imagem_cnh"
-                            accept="image/*"
-                          />
+                          <div class="custom-file">
+                            <input
+                              class="custom-file-input"
+                              type="file"
+                              name="imagem_cnh"
+                              id="imagem_cnh"
+                              accept="image/*"
+                            />
+                            <label class="custom-file-label" for="imagem_cnh"
+                              >Escolher arquivo</label
+                            >
+                          </div>
                         </div>
                       </div>
-
-                      <!-- geo localização -->
 
                       <div class="ln_solid"></div>
 
