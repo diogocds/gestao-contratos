@@ -13,7 +13,7 @@ const cadastroUsuarioWeb = (req, res) => {
   );
 };
 
-// Rota para criar um novo Parceiro
+// Rota para criar um novo Usuário
 const cadastroUsuarioController = async (req, res) => {
   const {
     nome,
@@ -22,13 +22,12 @@ const cadastroUsuarioController = async (req, res) => {
     tipo_usuario_id,
     rg,
     cpf,
+    cep,
     logradouro,
     numero,
-    cep,
     bairro,
     telefones,
   } = req.body;
-  const { horarios } = req.body;
   const arquivos = req.files;
 
   if (!nome || !nome.trim()) {
@@ -51,47 +50,20 @@ const cadastroUsuarioController = async (req, res) => {
     return res.status(400).send("Nenhum arquivo enviado.");
   }
 
-  // Verificar se os dados de horários foram enviados
-  if (!horarios || typeof horarios !== "object") {
-    return res.status(400).json({
-      error: "Dados incompletos. Envie os horários de forma correta.",
-    });
-  }
-
-  // Distribuir os horários para os dias selecionados
-  const horariosDistribuidos = distribuirHorarios(horarios);
-
-  // Validar se os horários estão no formato correto
-  if (
-    !horariosDistribuidos.every(
-      (horario) =>
-        validarHorario(horario.horarioAbertura) &&
-        validarHorario(horario.horarioFechamento)
-    )
-  ) {
-    return res
-      .status(400)
-      .json({ error: "Formato de horário inválido. Use o formato HH:MM." });
-  }
-
   try {
-    // Iniciar uma transação
-    await pool.query("BEGIN");
-
     const senhaEncriptada = await bcrypt.hash(senha, 10);
 
     // Inserir o usuário na tabela "usuarios" e obter o ID gerado
     const novoUsuario = await pool.query(
-      "INSERT INTO usuarios (nome, email, senha, categoria_usuario_id, created_at, updated_at) VALUES ($1, $2, $3, $4, NOW(), NOW()) RETURNING id",
-      [nome, email, senhaEncriptada, categoria_usuario_id]
+      "INSERT INTO usuarios (nome, email, senha, tipo_usuario_id, created_at, updated_at) VALUES ($1, $2, $3, $4, NOW(), NOW()) RETURNING id",
+      [nome, email, senhaEncriptada, tipo_usuario_id]
     );
-
     const usuarios_id = novoUsuario.rows[0].id;
 
     // Inserir o endereço na tabela "enderecos", associando-o ao ID do usuário
     await pool.query(
-      "INSERT INTO enderecos (logradouro, numero, cep, bairro, municipio_id, usuarios_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, NOW(), NOW())",
-      [logradouro, numero, cep, bairro, municipio_id, usuarios_id]
+      "INSERT INTO enderecos (logradouro, numero, cep, bairro, usuarios_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW())",
+      [logradouro, numero, cep, bairro, usuarios_id]
     );
 
     // Inserir cada telefone na tabela "telefones", associando-os ao ID do usuário
