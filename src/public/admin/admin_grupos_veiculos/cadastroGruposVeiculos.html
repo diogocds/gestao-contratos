@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Importando o Menu -->
+	<script src="../../admin/components/menu_left/index.js"></script>
+	<script src="../../admin/components/menu_top/index.js"></script>
+	<script src="../../admin/components/menu_footer/index.js"></script>
+	<link rel="stylesheet" href="../assets/css/styleGlobal.css" />
+	<script src="../../admin/assets/js/cadastro.js"></script>
+  <script src="../../admin/assets/js/cosultaBanco.js" defer></script>
+	<title>Admin - Gestão de Contratos</title>
+
+</head>
+
+<body>
+	<main class="main-content">
+		<div class="menu-topo">
+			<div class="home-span">
+				<a href="/admin/index.html"><span>Home Gestão Contratos</span></a>
+				<a href="#"><span>Suporte On-Line</span></a>
+			</div>
+			<div class="home-icon">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="28"
+					height="28"
+					fill="currentColor"
+					class="bi bi-person-circle"
+					viewBox="0 0 16 16"
+				>
+					<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+					<path
+						fill-rule="evenodd"
+						d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+					/>
+				</svg>
+			</div>
+		</div>
+		<form class="form-main-content" action="/gruposveiculos" method="POST" id="formParceiros">
+			<div>
+				<h1>Tela de Cadastro de Veículos</h1>
+			</div>
+				<h2 class="">Dados do Grupo de Veiculos</h2>
+				
+				<div class="inputs-form">
+					<label
+						for="nome">Nome</label>
+					<div class="inputs-form"><input type="text" name="nome" value="" required></div>
+				
+				</div>
+				<div class="inputs-form">
+						<label 
+							for="descricao">Descrição</label>
+						<div class="inputs-form"><input type="text" name="descricao" value="" required></div>
+				</div>
+					
+					<div><button type="submit">Salvar</button></div>
+		</form>
+		<!-- footer content -->
+		<menu-footer></menu-footer>
+		<!-- /footer content -->
+</main>
+	<!-- sidebar menu -->
+	<menu-left></menu-left>
+	<!-- /sidebar menu -->
+	<!-- top navigation -->
+	<menu-top></menu-top>
+	<!-- /top navigation -->
+	
+	</html>
+</body
+
+
+
+    

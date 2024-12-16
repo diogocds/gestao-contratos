@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Importando o Menu -->
+    <script src="../../admin/components/menu_left/index.js"></script>
+    <script src="../../admin/components/menu_top/index.js"></script>
+    <script src="../../admin/components/menu_footer/index.js"></script>
+    <link rel="stylesheet" href="../assets/css/styleGlobal.css" />
+    <script src="../../admin/assets/js/cadastro.js"></script>
+    <script src="../../admin/assets/js/cosultaBanco.js" defer></script>
+    <title>Admin - Gestão de Contratos</title>
+  </head>
+
+  <body>
+    <main class="main-content">
+      <div class="menu-topo">
+        <div class="home-span">
+          <a href="/admin/index.html"><span>Home Gestão Contratos</span></a>
+          <a href="#"><span>Suporte On-Line</span></a>
+        </div>
+        <div class="home-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            fill="currentColor"
+            class="bi bi-person-circle"
+            viewBox="0 0 16 16"
+          >
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+            <path
+              fill-rule="evenodd"
+              d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+            />
+          </svg>
+        </div>
+      </div>
+      <form
+        class="form-main-content"
+        action="/parceiros"
+        method="POST"
+        id="formParceiros"
+      >
+        <div>
+          <h1>Tela de Cadastro de Usuários</h1>
+        </div>
+        <h2>Dados do Usuário</h2>
+        <div class="inputs-form">
+          <label for="tipo_usuario_id">Tipo de Usuário</label>
+          <div class="inputs-form">
+            <select name="tipo_usuario_id" id="tipo_usuario_id" required>
+              <option value=""></option>
+            </select>
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="nome">Nome</label>
+          <div class="inputs-form">
+            <input type="text" name="nome" value="" required />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="cpf">CPF</label>
+          <div class="inputs-form">
+            <input type="text" name="cpf" value="" required />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="rg">RG</label>
+          <div class="inputs-form">
+            <input type="text" name="rg" value="" required />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="data_emissao_cnh">Data Nascimento</label>
+          <div class="inputs-form">
+            <input
+              type="date"
+              name="data_nascimento"
+              id="data_nascimento"
+              required
+            />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="email">E-mail</label>
+          <div class="inputs-form">
+            <input type="email" name="email" value="" required />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="email">Senha</label>
+          <div class="inputs-form">
+            <input type="password" name="senha" value="" required />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="telefone">Telefone</label>
+          <div class="inputs-form">
+            <input
+              type="text"
+              name="telefones[]"
+              id="telefone"
+              maxlength="15"
+            />
+          </div>
+        </div>
+        <div id="telefones-container"></div>
+        <div>
+          <div>
+            <button type="button" onclick="addTelefone()">
+              Adicionar telefone
+            </button>
+          </div>
+        </div>
+        <div id="camposUsuario"></div>
+        <h2>Endereço</h2>
+        <div class="inputs-form">
+          <label for="cep">CEP</label>
+          <div class="inputs-form">
+            <input type="text" name="cep" id="cep" maxlength="9" required />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="logradouro">Logradouro</label>
+          <div class="inputs-form">
+            <input type="text" name="logradouro" id="logradouro" />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label>Número</label>
+          <div class="inputs-form">
+            <input type="text" name="numero" id="numero" />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="bairro">Bairro</label>
+          <div class="inputs-form">
+            <input type="text" name="bairro" id="bairro" />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="municipio">Município</label>
+          <div class="inputs-form">
+            <input type="text" name="localidade" id="localidade" />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="estado">Estado</label>
+          <div class="inputs-form">
+            <input type="text" name="uf" id="uf" />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="numero_cnh">Número da CNH</label>
+          <div class="inputs-form">
+            <input
+              type="text"
+              name="numero_cnh"
+              id="numero_cnh"
+              maxlength="11"
+              required
+            />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="categoria_cnh">Categoria da CNH</label>
+          <div class="inputs-form">
+            <select name="categoria_cnh" id="categoria_cnh" required>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+              <option value="AB">AB</option>
+              <option value="BD">BD</option>
+            </select>
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="data_emissao_cnh">Data de Emissão</label>
+          <div class="inputs-form">
+            <input
+              type="date"
+              name="data_emissao_cnh"
+              id="data_emissao_cnh"
+              required
+            />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="data_validade_cnh">Data de Validade</label>
+          <div class="inputs-form">
+            <input
+              type="date"
+              name="data_validade_cnh"
+              id="data_validade_cnh"
+              required
+            />
+          </div>
+        </div>
+        <div class="inputs-form">
+          <label for="imagem_cnh"> Imagem da CNH </label>
+          <div class="inputs-form">
+            <input
+              type="file"
+              name="imagem_cnh"
+              id="imagem_cnh"
+              accept="image/*"
+            />
+          </div>
+        </div>
+        <div>
+          <div>
+            <button type="submit">Salvar</button>
+          </div>
+        </div>
+      </form>
+      <!-- footer content -->
+      <menu-footer></menu-footer>
+      <!-- /footer content -->
+    </main>
+    <!-- sidebar menu -->
+    <menu-left></menu-left>
+    <!-- /sidebar menu -->
+    <!-- top navigation -->
+    <menu-top></menu-top>
+    <!-- /top navigation -->
+  </body>
+</html>
