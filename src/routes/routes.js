@@ -2,22 +2,33 @@ const express = require("express");
 
 // MODELO
 const {
-  cadastroFuncionarioController,
-  cadastroFuncionarioWeb,
-} = require("../controllers/admin_parceiros/cadastroFuncionarioController");
-
-const {
   cadastroUsuarioController,
   cadastroUsuarioWeb,
-} = require("../controllers/admin_parceiros/cadastroUsuarioController");
+} = require("../controllers/admin_usuarios/cadastroUsuarioController");
 
 const {
   listarTipoUsuarioController,
-} = require("../controllers/admin_parceiros/listarTipoUsuario");
+} = require("../controllers/admin_usuarios/listarTipoUsuarioController");
 const {
   cadastrarGruposVeiculosWeb,
   cadastrarGrupoVeiculoController,
 } = require("../controllers/admin_grupos_veiculos/cadastrarGruposVeiculosController");
+
+const {
+  listarUsuariosController,
+  listarUsuarioWeb,
+} = require("../controllers/admin_usuarios/listarUsuarioController");
+
+const {
+  deletarUsuarioController,
+  deletarUsuarioWeb,
+} = require("../controllers/admin_usuarios/deletarUsuarioController");
+const rotas = express();
+
+const {
+  cadastrarVeiculosWeb,
+  cadastrarVeiculoController,
+} = require("../controllers/admin_veiculos/cadastrarVeiculosController");
 // MODELO
 
 const listarClienteControlador = require("../controllers/clientes/listarClienteControlador");
@@ -64,18 +75,23 @@ const deletarChecklistControlador = require("../controllers/checklist/deletarChe
 const logarUsuarioControlador = require("../controllers/usuarios/loginControlador");
 const verificarUsuarioLogado = require("../intermediarios/verificarUsuarioLogado");
 
-const rotas = express();
+
 
 // MODELO
-// Parceiros - Rotas para páginas HTML do Admin
-rotas.get("/admin/parceiros/criar", cadastroUsuarioWeb);
-rotas.get("/admin/parceiros/listar", cadastroFuncionarioWeb);
-rotas.get("/admin/grupos-veiculos/criar", cadastrarGruposVeiculosWeb);
+// Usuarios - Rotas para páginas HTML do Admin
+rotas.get("/admin/usuarios/criar", cadastroUsuarioWeb);
+rotas.get("/admin/usuarios/listar", listarUsuarioWeb);
+rotas.get("/admin/grupos_veiculos/criar", cadastrarGruposVeiculosWeb);
+rotas.get("/admin/usuarios/deletar", deletarUsuarioWeb);
+rotas.get("/admin/veiculos/criar", cadastrarVeiculosWeb);
+
+
 // Rotas para Usuarios
-rotas.post("/parceiros", cadastroUsuarioController);
+rotas.post("/usuarios", cadastroUsuarioController);
 rotas.get("/admin/tipo_usuarios", listarTipoUsuarioController);
-rotas.get("/parceiros", cadastroFuncionarioController);
-rotas.post("/gruposveiculos", cadastrarGrupoVeiculoController);
+rotas.get("/admin/listar_usuarios", listarUsuariosController);
+rotas.post("/grupos_veiculos", cadastrarGrupoVeiculoController);
+rotas.delete("/admin/deletar_usuario/:id", deletarUsuarioController);
 // MODELO
 
 // Rotas Clientes
@@ -84,7 +100,7 @@ rotas.get("/clientes/:id", obterUmClinteControlador);
 rotas.put("/clientes/:id", atualizarClienteControlador);
 rotas.post("/clientes", criarClienteControlador);
 rotas.delete("/clientes/:id", deletarClienteControlador);
-
+rotas.post("/veiculos", cadastrarVeiculoController);
 // Rotas Cnhs
 rotas.get("/cnhs", listarCnhControlador);
 rotas.get("/cnhs/:id", obterUmaCnhControlador);

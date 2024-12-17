@@ -93,6 +93,35 @@ body {
   z-index: 1100;
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+th,
+td {
+  width: 800px;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #010102;
+}
+th {
+  background-color: #f2f2f2;
+  color: #12131d;
+}
+#btnListar {
+  background-color: #13141f;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 10px;
+  float: right;
+  cursor: pointer;
+}
+#btnListar:hover {
+  background-color: #010102;
+}
+
 .ul-menu-left {
   margin-bottom: 5px;
 }
@@ -129,7 +158,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 1000px;
+  width: 90%;
   margin: 0px 234px auto;
   position: absolute;
   background-color: #13141f;
@@ -141,7 +170,7 @@ body {
   align-items: center;
   justify-content: center;
   color: white;
-  width: 95%;
+  width: 80%;
   padding: 50px;
   gap: 20px;
   margin: 20px;
@@ -151,7 +180,7 @@ body {
 .inputs-form > input,
 .inputs-form > select,
 .inputs-form > input[type="file"] {
-  width: 500px;
+  width: 800px;
   padding: 8px;
   border-radius: 8px;
   outline: none;

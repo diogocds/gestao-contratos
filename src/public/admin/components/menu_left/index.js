@@ -21,9 +21,9 @@ class MenuLeft extends HTMLElement {
                 Cadastros Usuários
               </a>
               <ul class="sub-menu usuarios-submenu">
-                <li><a href="/admin/parceiros/criar">> Cadastrar Usuários</a></li>
+                <li><a href="/admin/usuarios/criar">> Cadastrar Usuários</a></li>
                 <br>
-                <li><a href="/admin/parceiros/listar">> Listar Usuários</a></li>
+                <li><a href="/admin/usuarios/listar">> Listar Usuários</a></li>
               </ul>
             </li>
             <li>
@@ -36,9 +36,11 @@ class MenuLeft extends HTMLElement {
               Cadastros Veículos
               </a>
               <ul class="sub-menu veiculos-submenu">
-                <li><a href="/admin/grupos-veiculos/criar">> Cadastrar Grupos</a></li>
+                <li><a href="/admin/grupos_veiculos/criar">> Cadastrar Grupos</a></li>
                 <br>
-                <li><a href="/admin/parceiros/listar">> Listar Grupos</a></li>
+                <li><a href="#">> Listar Grupos</a></li>
+                 <br>
+                <li><a href="/admin/admin_view_veiculos/cadastroVeiculos.html">> Cadastrar Veiculos</a></li>
               </ul>
             </li>
           </ul>

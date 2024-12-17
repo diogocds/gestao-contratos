@@ -22,10 +22,10 @@ window.addEventListener("load", carregarTipoUsuarios);
 // Pegando CEP
 
 document.getElementById("cep").addEventListener("input", function () {
-  let cep = this.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+  let cep = this.value.replace(/\D/g, "");
 
   if (cep.length > 5) {
-    cep = cep.replace(/(\d{5})(\d)/, "$1-$2"); // Adiciona hífen após os primeiros 5 dígitos
+    cep = cep.replace(/(\d{5})(\d)/, "$1-$2");
   }
 
   this.value = cep; // Atualiza o valor do campo com a máscara
@@ -53,3 +53,5 @@ document.getElementById("cep").addEventListener("input", function () {
       .catch((error) => console.error("Erro na consulta ao ViaCEP:", error));
   }
 });
+
+//Listar Usuarios
