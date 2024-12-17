@@ -29,6 +29,8 @@ const {
   cadastrarVeiculosWeb,
   cadastrarVeiculoController,
 } = require("../controllers/admin_veiculos/cadastrarVeiculosController");
+const { listarGruposVeiculosController } = require("../controllers/admin_grupos_veiculos/listarGruposVeiculosController");
+
 // MODELO
 
 const listarClienteControlador = require("../controllers/clientes/listarClienteControlador");
@@ -89,6 +91,7 @@ rotas.get("/admin/veiculos/criar", cadastrarVeiculosWeb);
 // Rotas para Usuarios
 rotas.post("/usuarios", cadastroUsuarioController);
 rotas.get("/admin/tipo_usuarios", listarTipoUsuarioController);
+rotas.get("/admin/grupos_veiculos", listarGruposVeiculosController);
 rotas.get("/admin/listar_usuarios", listarUsuariosController);
 rotas.post("/grupos_veiculos", cadastrarGrupoVeiculoController);
 rotas.delete("/admin/deletar_usuario/:id", deletarUsuarioController);

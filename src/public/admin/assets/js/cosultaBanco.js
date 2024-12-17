@@ -19,6 +19,27 @@ async function carregarTipoUsuarios() {
 // Carregar as tipos de usuários quando a página carregar
 window.addEventListener("load", carregarTipoUsuarios);
 
+async function carregarGrupoVeiculo() {
+  try {
+    const response = await fetch("/admin/grupos_veiculos");
+    const grupoVeiculo = await response.json();
+    const selectGrupoVeiculo = document.querySelector(
+      'select[name="grupos_veiculos"]'
+    );
+    grupoVeiculo.forEach((grupo) => {
+      const option = document.createElement("option");
+      option.value = grupo.id;
+      option.textContent = grupo.nome;
+      selectGrupoVeiculo.appendChild(option);
+    });
+  } catch (error) {
+    console.error("Erro ao carregar o Grupo do veiculo.", erro);
+  }
+}
+
+// Carregar as tipos de usuários quando a página carregar
+window.addEventListener("load", carregarGrupoVeiculo);
+
 // Pegando CEP
 
 document.getElementById("cep").addEventListener("input", function () {
