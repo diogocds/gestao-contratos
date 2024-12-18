@@ -13,7 +13,7 @@ const cadastrarGruposVeiculosWeb = (req, res) => {
 };
 
 // Cadastrar Grupos Veículos
-async function cadastrarGrupoVeiculoController(req, res) {
+async function cadastrarGruposVeiculosController(req, res) {
   const { nome, descricao } = req.body;
 
   try {
@@ -30,7 +30,9 @@ async function cadastrarGrupoVeiculoController(req, res) {
       [nome, descricao]
     );
 
-    return res.status(201).json(resultado.rows);
+    // Redirecionar para a página do formulário com uma query string para indicar sucesso
+    return res.redirect("/admin/grupos_veiculos/criar?success=true");
+
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ mensagem: "Erro ao Cadastrar Grupo do Veiculo" });
@@ -39,5 +41,5 @@ async function cadastrarGrupoVeiculoController(req, res) {
 
 module.exports = {
   cadastrarGruposVeiculosWeb,
-  cadastrarGrupoVeiculoController,
+  cadastrarGruposVeiculosController,
 };

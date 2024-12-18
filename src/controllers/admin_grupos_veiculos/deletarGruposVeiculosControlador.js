@@ -1,6 +1,6 @@
 const pool = require('../../config/conexao');
 
-async function deletarGrupoVeiculo (req, res) {
+async function deletarGruposVeiculosController (req, res) {
     const { id } = req.params;
 
     try {
@@ -25,4 +25,4 @@ async function deletarGrupoVeiculo (req, res) {
     };
 };
 
-module.exports = deletarGrupoVeiculo;
+module.exports = deletarGruposVeiculosController;

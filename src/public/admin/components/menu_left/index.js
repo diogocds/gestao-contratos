@@ -38,9 +38,9 @@ class MenuLeft extends HTMLElement {
               <ul class="sub-menu veiculos-submenu">
                 <li><a href="/admin/grupos_veiculos/criar">> Cadastrar Grupos</a></li>
                 <br>
-                <li><a href="#">> Listar Grupos</a></li>
+                <li><a href="/admin/grupos_veiculos/listar">> Listar Grupos</a></li>
                  <br>
-                <li><a href="/admin/admin_view_veiculos/cadastroVeiculos.html">> Cadastrar Veiculos</a></li>
+                <li><a href="/admin/veiculos/criar">> Cadastrar Veiculos</a></li>
               </ul>
             </li>
           </ul>

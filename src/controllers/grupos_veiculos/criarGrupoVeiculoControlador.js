@@ -13,7 +13,7 @@ async function criarGrupoVeiculo (req, res) {
         };
 
         const resultado = await pool.query(
-            'INSERT INTO grupos_veiculos (nome, valor) values ($1, $2) RETURNING *',
+            'INSERT INTO grupos_veiculos (nome, descricao) values ($1, $2) RETURNING *',
             [nome, valor]
         );
     

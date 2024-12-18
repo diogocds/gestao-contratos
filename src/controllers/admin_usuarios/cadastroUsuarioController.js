@@ -91,6 +91,7 @@ const cadastroUsuarioController = async (req, res) => {
 
     // Redirecionar para a página do formulário com uma query string para indicar sucesso
     return res.redirect("/admin/usuarios/criar?success=true");
+    
   } catch (err) {
     // Reverter a transação em caso de erro
     await pool.query("ROLLBACK");

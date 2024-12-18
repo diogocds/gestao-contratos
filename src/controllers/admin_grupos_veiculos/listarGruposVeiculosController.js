@@ -1,6 +1,17 @@
 const pool = require("../../config/conexao");
 const path = require("path");
 
+// Rota para a página Listar Usuarios
+const listarGruposVeiculosWeb = (req, res) => {
+  res.sendFile(
+    path.join(
+      __dirname,
+      "../../public/admin/admin_grupos_veiculos",
+      "listarGruposVeiculos.html"
+    )
+  );
+};
+
 const listarGruposVeiculosController = async (req, res) => {
   try {
     const tipoUsuario = await pool.query(
@@ -16,5 +27,6 @@ const listarGruposVeiculosController = async (req, res) => {
 };
 
 module.exports = {
-    listarGruposVeiculosController,
+  listarGruposVeiculosWeb,
+  listarGruposVeiculosController
 };
