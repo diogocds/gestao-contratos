@@ -24,7 +24,7 @@ async function carregarGrupoVeiculo() {
     const response = await fetch("/admin/grupos_veiculos");
     const grupoVeiculo = await response.json();
     const selectGrupoVeiculo = document.querySelector(
-      'select[name="grupos_veiculos"]'
+      'select[name="grupos_veiculos_id"]'
     );
     grupoVeiculo.forEach((grupo) => {
       const option = document.createElement("option");

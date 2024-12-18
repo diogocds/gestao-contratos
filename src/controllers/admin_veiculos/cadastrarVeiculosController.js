@@ -6,7 +6,7 @@ const cadastrarVeiculosWeb = (req, res) => {
   res.sendFile(
     path.join(
       __dirname,
-      "../../public/admin/admin_veiculos",
+      "../../public/admin/admin_view_veiculos",
       "cadastroVeiculos.html"
     )
   );
@@ -14,7 +14,7 @@ const cadastrarVeiculosWeb = (req, res) => {
 
 // Cadastrar Grupos Veículos
 async function cadastrarVeiculoController(req, res) {
-  const { modelo, placa, ano, marca, cor } = req.body;
+  const { modelo, placa, ano, marca, cor, grupos_veiculos_id } = req.body;
 
   try {
 
@@ -36,14 +36,11 @@ async function cadastrarVeiculoController(req, res) {
 if (!cor) {
   return res.status(400).json({ mensagem: 'A Cor é Obrigatorio.' });
 };
-
-
     const resultado = await pool.query(
-      "INSERT INTO veiculos ( modelo, placa, ano, marca, cor) values ($1, $2, $3, $4, $5) RETURNING *",
-      [modelo, placa, ano, marca, cor]
+      "INSERT INTO veiculos ( modelo, placa, ano, marca, cor, grupos_veiculos_id , created_at, updated_at) values ($1, $2, $3, $4, $5, $6, NOW(), NOW())RETURNING *",
+      [modelo, placa, ano, marca, cor, grupos_veiculos_id]
     );
-
-    return res.status(201).json(resultado.rows);
+    return res.redirect("/admin/veiculos/criar/?success=true");
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ mensagem: "Erro ao Criar Veiculo" });

@@ -94,6 +94,7 @@ rotas.get("/admin/tipo_usuarios", listarTipoUsuarioController);
 rotas.get("/admin/grupos_veiculos", listarGruposVeiculosController);
 rotas.get("/admin/listar_usuarios", listarUsuariosController);
 rotas.post("/grupos_veiculos", cadastrarGrupoVeiculoController);
+rotas.post("/veiculos", cadastrarVeiculoController);
 rotas.delete("/admin/deletar_usuario/:id", deletarUsuarioController);
 // MODELO
 
