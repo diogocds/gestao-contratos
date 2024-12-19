@@ -4,52 +4,28 @@ const bcrypt = require("bcrypt");
 
 // Rota para a página criar Parceiros
 const cadastroUsuarioWeb = (req, res) => {
-  res.sendFile(
-    path.join(
-      __dirname,
-      "../../public/admin/admin_view_usuarios",
-      "cadastroUsuario.html"
-    )
-  );
+  res.sendFile( path.join(__dirname, "../../public/admin/admin_view_usuarios", "cadastroUsuario.html"));
 };
 
 // Rota para criar um novo Usuário
 const cadastroUsuarioController = async (req, res) => {
-  const {
-    nome,
-    email,
-    senha,
-    tipo_usuario_id,
-    rg,
-    cpf,
-    data_nascimento,
-    cep,
-    logradouro,
-    numero,
-    bairro,
-    telefones,
-  } = req.body;
-  const arquivos = req.files;
+  const { nome, email, senha, tipo_usuario_id, rg, cpf, data_nascimento, cep, logradouro, numero, bairro, telefones } = req.body;
 
   if (!nome || !nome.trim()) {
     return res.status(400).json({ message: "O campo Nome é obrigatório." });
-  }
+  };
 
   if (!email || !email.trim()) {
     return res.status(400).json({ message: "O campo E-mail é obrigatório." });
-  }
+  };
 
   if (!senha || !senha.trim()) {
     return res.status(400).json({ message: "O campo Senha é obrigatório." });
-  }
+  };
 
   if (!cep || !cep.trim()) {
     return res.status(400).json({ message: "O campo CEP é obrigatório." });
-  }
-
-  // if (!arquivos || arquivos.length === 0) {
-  //   return res.status(400).send("Nenhum arquivo enviado.");
-  // }
+  };
 
   try {
     const senhaEncriptada = await bcrypt.hash(senha, 10);
@@ -59,6 +35,7 @@ const cadastroUsuarioController = async (req, res) => {
       "INSERT INTO usuarios (nome, email, senha, tipo_usuario_id, created_at, updated_at) VALUES ($1, $2, $3, $4, NOW(), NOW()) RETURNING id",
       [nome, email, senhaEncriptada, tipo_usuario_id]
     );
+
     const usuario_id = novoUsuario.rows[0].id;
 
     // Inserir o endereço na tabela "enderecos", associando-o ao ID do usuário
@@ -66,6 +43,7 @@ const cadastroUsuarioController = async (req, res) => {
       "INSERT INTO enderecos (logradouro, numero, cep, bairro, usuario_id, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW())",
       [logradouro, numero, cep, bairro, usuario_id]
     );
+
     await pool.query(
       "INSERT INTO documentos (cpf, rg, data_nascimento, usuario_id, created_at, updated_at) VALUES ($1, $2, $3, $4, NOW(), NOW())",
       [cpf, rg, data_nascimento, usuario_id]

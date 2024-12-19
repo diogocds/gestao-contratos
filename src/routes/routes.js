@@ -1,73 +1,51 @@
 const express = require("express");
 
 // MODELO
-const {
-  cadastroUsuarioController,
-  cadastroUsuarioWeb,
-} = require("../controllers/admin_usuarios/cadastroUsuarioController");
+const { cadastroUsuarioController, cadastroUsuarioWeb } = require("../controllers/admin_usuarios/cadastroUsuarioController");
+const { listarTipoUsuarioController } = require("../controllers/admin_usuarios/listarTipoUsuarioController");
+const { cadastrarGruposVeiculosWeb, cadastrarGruposVeiculosController } = require("../controllers/admin_grupos_veiculos/cadastrarGruposVeiculosController");
+const { listarUsuariosController, listarUsuarioWeb } = require("../controllers/admin_usuarios/listarUsuarioController");
+const { deletarUsuarioController, deletarUsuarioWeb } = require("../controllers/admin_usuarios/deletarUsuarioController");
 
-const {
-  listarTipoUsuarioController,
-} = require("../controllers/admin_usuarios/listarTipoUsuarioController");
-const {
-  cadastrarGruposVeiculosWeb,
-  cadastrarGrupoVeiculoController,
-  cadastrarGruposVeiculosController,
-} = require("../controllers/admin_grupos_veiculos/cadastrarGruposVeiculosController");
-
-const {
-  listarUsuariosController,
-  listarUsuarioWeb,
-} = require("../controllers/admin_usuarios/listarUsuarioController");
-
-const {
-  deletarUsuarioController,
-  deletarUsuarioWeb,
-} = require("../controllers/admin_usuarios/deletarUsuarioController");
 const rotas = express();
 
-const {
-  cadastrarVeiculosWeb,
-  cadastrarVeiculoController,
-} = require("../controllers/admin_veiculos/cadastrarVeiculosController");
-
+const { cadastrarVeiculosWeb, cadastrarVeiculoController } = require("../controllers/admin_veiculos/cadastrarVeiculosController");
 const { listarGruposVeiculosController, listarGruposVeiculosWeb } = require("../controllers/admin_grupos_veiculos/listarGruposVeiculosController");
-
-// MODELO
-
-
-
-
-
-const deletarGruposVeiculosController = require("../controllers/admin_grupos_veiculos/deletarGruposVeiculosControlador");
+const { deletarGruposVeiculosController } = require("../controllers/admin_grupos_veiculos/deletarGruposVeiculosControlador");
+const { listarVeiculosWeb, listarVeiculosController } = require("../controllers/admin_veiculos/listarVeiculosController");
+const { deletarVeiculosController } = require("../controllers/admin_veiculos/deletarVeiculosControlador");
 
 
 
-// MODELO
-// Usuarios - Rotas para páginas HTML do Admin
+
+
+// Rotas Web
 rotas.get("/admin/usuarios/criar", cadastroUsuarioWeb);
 rotas.get("/admin/usuarios/listar", listarUsuarioWeb);
 rotas.get("/admin/usuarios/deletar", deletarUsuarioWeb);
 
-// Rotas Grupos Veiculos - Ok
 rotas.get("/admin/grupos_veiculos/criar", cadastrarGruposVeiculosWeb);
 rotas.get("/admin/grupos_veiculos/listar", listarGruposVeiculosWeb);
+
+rotas.get("/admin/veiculos/criar", cadastrarVeiculosWeb);
+rotas.get("/admin/veiculos/listar", listarVeiculosWeb);
+
+// Rotas Controller
+rotas.post("/usuarios", cadastroUsuarioController);
+rotas.get("/admin/tipo_usuarios", listarTipoUsuarioController);
+rotas.get("/admin/listar_usuarios", listarUsuariosController);
+rotas.delete("/admin/deletar_usuario/:id", deletarUsuarioController);
+
 rotas.post("/admin/grupos_veiculos", cadastrarGruposVeiculosController);
 rotas.get("/admin/grupos_veiculos", listarGruposVeiculosController);
 rotas.delete("/admin/grupos_veiculos/:id", deletarGruposVeiculosController);
 
-// Rotas Web - OK
-rotas.get("/admin/veiculos/criar", cadastrarVeiculosWeb);
-
-// Rotas Controladores OK
 rotas.post("/admin/veiculos/criar", cadastrarVeiculoController);
+rotas.get("/admin/veiculos/listar-web", listarVeiculosController);
+rotas.delete("/admin/veiculos/:id", deletarVeiculosController);
 
-rotas.post("/usuarios", cadastroUsuarioController);
-rotas.get("/admin/tipo_usuarios", listarTipoUsuarioController);
-rotas.get("/admin/listar_usuarios", listarUsuariosController);
 
-rotas.delete("/admin/deletar_usuario/:id", deletarUsuarioController);
-// MODELO
+
 
 // Rotas Cnhs
 // rotas.get("/cnhs", listarCnhControlador);

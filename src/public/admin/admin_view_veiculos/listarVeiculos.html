@@ -5,11 +5,14 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
     <script src="../../admin/components/menu_left/index.js"></script>
     <script src="../../admin/components/menu_top/index.js"></script>
     <script src="../../admin/components/menu_footer/index.js"></script>
+    
     <link rel="stylesheet" href="../../admin/assets/css/styleGlobal.css" />
-    <script src="../../admin/assets/js/cosultaBanco.js" defer></script>
+
+    <!-- <script src="../../admin/assets/js/cosultaBanco.js" defer></script> -->
 
     <title>Admin - Gestão de Contratos</title>
   </head>
@@ -41,9 +44,9 @@
 
       <section class="form-main-content" id="formParceiros">
         <div>
-          <h1>Tela de Lista de Veículos</h1>
+          <h1>Listar Veículos</h1>
         </div>
-        <div>
+        <div id="alinhar-botao">
           <table id="tabelaUsuarios">
             <thead>
               <tr>
@@ -56,7 +59,7 @@
               <!-- Dados dos usuários serão inseridos aqui -->
             </tbody>
           </table>
-          <button type="button" id="btnListar">Listar Usuários</button>
+          <button type="button" id="btnListar">Listar</button>
         </div>
       </section>
 
@@ -75,7 +78,7 @@
         .getElementById("btnListar")
         .addEventListener("click", async () => {
           try {
-            const response = await fetch("/admin/grupos_veiculos");
+            const response = await fetch("/admin/veiculos/listar-web");
             if (response.ok) {
               const usuarios = await response.json();
               const tbody = document.getElementById("listaGrupos");
@@ -89,7 +92,7 @@
                 tr.appendChild(tdId);
 
                 const tdNome = document.createElement("td");
-                tdNome.textContent = usuario.nome;
+                tdNome.textContent = usuario.modelo;
                 tr.appendChild(tdNome);
 
                 const tdAcoes = document.createElement("td");
@@ -98,7 +101,7 @@
                 btnApagar.onclick = async () => {
                   try {
                     const deleteResponse = await fetch(
-                      `/admin/grupos_veiculos/${usuario.id}`,
+                      `/admin/veiculos/${usuario.id}`,
                       { method: "DELETE" }
                     );
 

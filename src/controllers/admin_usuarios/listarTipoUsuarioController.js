@@ -1,5 +1,4 @@
 const pool = require("../../config/conexao");
-const path = require("path");
 
 const listarTipoUsuarioController = async (req, res) => {
   try {
@@ -9,10 +8,11 @@ const listarTipoUsuarioController = async (req, res) => {
 
     // Retorna a lista de tipos de Usuários
     return res.status(200).json(tipoUsuario.rows);
+
   } catch (err) {
     console.error("Erro ao listar Tipo do Usuário:", err.message);
     return res.status(500).json({ message: "Erro ao listar Tipo do Usuário" });
-  }
+  };
 };
 
 module.exports = {

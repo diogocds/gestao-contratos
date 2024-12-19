@@ -1,15 +1,9 @@
 const pool = require("../../config/conexao");
 const path = require("path");
 
-// Rota para a página cadastrar orientações
+// Rota para a página Cadastrar Grupos Veículos
 const cadastrarGruposVeiculosWeb = (req, res) => {
-  res.sendFile(
-    path.join(
-      __dirname,
-      "../../public/admin/admin_grupos_veiculos",
-      "cadastroGruposVeiculos.html"
-    )
-  );
+  res.sendFile(path.join(__dirname, "../../public/admin/admin_view_grupos_veiculos", "cadastroGruposVeiculos.html"));
 };
 
 // Cadastrar Grupos Veículos
@@ -22,7 +16,7 @@ async function cadastrarGruposVeiculosController(req, res) {
     }
 
     if (!descricao) {
-      return res.status(400).json({ mensagem: "A Descricao é Obrigatoria." });
+      return res.status(400).json({ mensagem: "A Descrição é Obrigatoria." });
     }
 
     const resultado = await pool.query(

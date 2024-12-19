@@ -2,15 +2,9 @@ const { log } = require("console");
 const pool = require("../../config/conexao");
 const path = require("path");
 
-// Rota para a página cadastrar orientações
+// Rota para a página cadastrar Veiculos
 const cadastrarVeiculosWeb = (req, res) => {
-  res.sendFile(
-    path.join(
-      __dirname,
-      "../../public/admin/admin_view_veiculos",
-      "cadastroVeiculos.html"
-    )
-  );
+  res.sendFile(path.join(__dirname, "../../public/admin/admin_view_veiculos", "cadastroVeiculos.html"));
 };
 
 // Cadastrar Grupos Veículos
